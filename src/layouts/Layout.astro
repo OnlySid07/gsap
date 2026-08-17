@@ -13,11 +13,50 @@
 	</body>
 </html>
 
-<style>
+<style is:global>
+	@import "tailwindcss";
+	@theme{
+		--font-sans: "GTA, sans-serif";
+		--font-narrow: "GTAnarrow, sans-serif";
+	}
 	html,
 	body {
+		background: #000;
+		height: 300vh;
+		
+		overflow-x: hidden;
+		overscroll-behavior: none;
+		color: white;
 		margin: 0;
 		width: 100%;
-		height: 100%;
+		
+	}
+	@font-face {
+		font-family: "GTA";
+		src: url("/fonts/gta-regular.woff") format("woff");
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: "GTAnarrow";
+		src: url("/fonts/gta-narrow.woff") format("woff");
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: "GTA";
+		src: url("/fonts/gta-bold.woff") format("woff");
+		font-weight: bold;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: "GTAnarrow";
+		src: url("/fonts/gta-semibold-bold.woff") format("woff");
+		font-weight: 600;
+		font-style: normal;
+		font-display: swap;
 	}
 </style>
