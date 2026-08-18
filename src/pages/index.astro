@@ -1,14 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import heroKeyLogo from "@/assets/hero-key-background.webp";
+import heroJosueLogo from "@/assets/josue.webp";
 ---
 
 <Layout>
-	<div id="logo-mask" class="fixed top-0 w-full h-screen">
+	<div id="logo-mask" class="fixed top-0 left-0 w-full h-screen z-10">
 		<section>
 			<picture
 				id="hero-key"
-				class="h-screen w-full scale-115 block overflow-hidden fixed"
+				class="h-screen scale-105 block overflow-hidden fixed"
 			>
 				<img
 					id="hero-key-logo"
@@ -18,25 +19,37 @@ import heroKeyLogo from "@/assets/hero-key-background.webp";
 			</picture>
 		</section>
 	</div>
-	<div class="fixed flex h-screen *:items-center justify-center w-full p-40">
-		<h1 id="hero-title" class=" "></h1>
+
+	<div id="logo-josue" class="fixed top-0 w-full h-screen z-0 opacity-0">
+		<section>
+			<!-- <picture
+				id="logo-josue-picture"
+				class="h-screen block translate-y-[-20%] "
+			>
+				<img
+					id="hero-josue-logo"
+					src={heroJosueLogo.src}
+					class="w-full h-full object-cover opacity-0"
+				/>
+			</picture> -->
+		</section>
 	</div>
 </Layout>
 
 <style>
 	#logo-mask {
 		background: white;
-		mask-image: url("/belen1.svg");
+		mask-image: url("/belen2.svg");
 		mask-position: center 49%;
 		mask-repeat: no-repeat;
-		mask-size: clamp(7000vh, 5000%, 0vh);
+		mask-size: clamp(9000vh, 6000%, 0vh);
 	}
-		#hero-title {
+	#logo-josue {
 		background: white;
-		mask-image: url("/Letra.svg");
-		mask-position: center 50%;
+		mask-image: url("/josue.svg");
 		mask-repeat: no-repeat;
-		/* mask-size: clamp(7000vh, 5000%, 0vh); */
+		mask-position: center 30%;
+		mask-size: clamp(30vh, 100%, 0vh);
 	}
 </style>
 
@@ -44,33 +57,39 @@ import heroKeyLogo from "@/assets/hero-key-background.webp";
 	import { gsap } from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 	gsap.registerPlugin(ScrollTrigger);
-	const tl = gsap
-		.timeline({
-			ease: "power1.inOut",
-			scrollTrigger: {
-				scrub: 1,
-			},
-		})
-		.to("#logo-mask", {
-			maskSize: "clamp(20vh, 25%, 30vh)",
-			duration: 0.2,
-		})
-		.to(
-			"#hero-key",
-			{
-				scale: 1,
-				opacity: 0,
-				duration: 0.2,
-			},
-			"<",
-		)
+	const tl = gsap.timeline({
+		ease: "power2.out",
+		scrollTrigger: {
+			scrub: 1,
+		},
+	});
 
+	tl
+		.to("#hero-key", { duration: 1, scale: 1 })
 		.to(
 			"#logo-mask",
 			{
-				transform: "translateY(-35%)",
-				duration: 0.4,
+				maskSize: "clamp(20vh, 100%, 30vh)",
 			},
-			"<",
+			0.8,
+		)
+		.to(
+			"#hero-key",
+			{
+				opacity: 0,
+				duration: 0.2,
+			},
+			0.4,
+		)
+		.to("#logo-mask", {
+			translateY: "-25%",
+		})
+		.to(
+			"#logo-josue",
+			{
+				opacity: 1,
+				duration: 0.1,
+			},
+			1.6,
 		);
 </script>
