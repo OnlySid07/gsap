@@ -108,6 +108,7 @@
 
     if (prefersReducedMotion()) {
       setProgress(100)
+      markLoadingReady()
       finish()
     } else if ($media.complete) {
       playIntro()

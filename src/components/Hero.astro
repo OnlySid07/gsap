@@ -6,12 +6,13 @@
             <video
             data-hero-video
             class="absolute inset-0 h-full w-full object-fill aspect-auto "
+            muted
             playsinline
             preload="auto"
             aria-hidden="true"
             >
-            <source src="/videos/style-1920-1.mp4" type="video/mp4" />
-            <source src="/videos/style-854-1.webm" type="video/webm" />
+            <source src="/videos/lover-1920-1.mp4" type="video/mp4" />
+            <!-- <source src="/videos/style-854-1.webm" type="video/webm" /> -->
         </video>
     </div>
 </div>
@@ -21,17 +22,26 @@
     import {$} from "@/lib/dom";
     import {onLoadingReady } from "@/lib/loading"
 
-    const $hero = $("[data-hero]");
-    const $video = $("[data-hero-video]")as HTMLVideoElement;
-    const $stage = $("[data-hero-stage]");
-    
-    if ($video){
-        onLoadingReady(() => {
-            $video.play().catch((error) => {
+    const $video = $("[data-hero-video]") as HTMLVideoElement | null;
+
+    const playHero = (video: HTMLVideoElement) => {
+        const attempt = () => {
+            video.play().catch((error) => {
                 console.error("Error al reproducir el video:", error);
             });
-        }); 
+        };
+
+        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+            attempt();
+            return;
+        }
+
+        video.addEventListener("canplay", attempt, { once: true });
+        video.load();
+    };
+
+    if ($video) {
+        $video.load();
+        onLoadingReady(() => playHero($video));
     }
-
-
 </script>
