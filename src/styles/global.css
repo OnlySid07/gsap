@@ -1,1 +1,84 @@
 @import "tailwindcss";
+
+
+	@font-face {
+		font-family: "TS";
+		src: url("/fonts/TS-regular.woff2") format("woff2");
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+
+    @theme {
+  /* --font-display: "Anton", sans-serif; */
+  --font-body: "TS", sans-serif;
+  /* --font-sans: "Inter", sans-serif; */
+
+  --text-title-small: 20px;
+  --text-title-small--line-height: 1;
+
+  --text-body-medium: 14px;
+  --text-body-medium--line-height: 1.5;
+  --text-body-small: 8px;
+  --text-body-small--line-height: 1;
+
+  --color-neutral-white: #f7f9fb;
+  --color-neutral-black: #000004;
+  --color-neutral-dark: #353838;
+  --color-neutral-light: #8aa5ad;
+
+  --color-red-light: #d12027;
+  --color-red-dark: #8d191b;
+
+  --color-blue-dark: #081d62;
+}
+
+@layer base {
+	html {
+		margin: 0;
+		width: 100%;
+		min-height: 100%;
+		background-color: var(--color-neutral-black);
+		color: var(--color-neutral-white);
+		color-scheme: dark;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		/* `clip` corta overflow sin romper sticky (a diferencia de `hidden`). */
+		overflow-x: clip;
+		scrollbar-width: thin;
+		scrollbar-color: var(--color-red-light) var(--color-blue-dark);
+	}
+
+	html::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	html::-webkit-scrollbar-track {
+		background: var(--color-blue-dark);
+	}
+
+	html::-webkit-scrollbar-thumb {
+		background: linear-gradient(
+			180deg,
+			var(--color-red-light) 0%,
+			var(--color-red-dark) 100%
+		);
+		border-radius: 999px;
+		border: 2px solid var(--color-blue-dark);
+	}
+
+	html::-webkit-scrollbar-thumb:hover {
+		background: var(--color-red-light);
+	}
+
+	body {
+		margin: 0;
+		width: 100%;
+		min-height: 100%;
+		/* El `overflow-x` de `html` se propaga al viewport y deja a `html` como
+		   `visible`, así que no recorta a sus descendientes. Repetirlo aquí sí
+		   contiene el desbordamiento (el tilt 3D del footer ensancha su caja). */
+		overflow-x: clip;
+        font-family: var(--font-body);
+	}
+}

@@ -1,0 +1,119 @@
+---
+
+---
+
+<div
+    id="loading"
+    class="fixed inset-0 z-50 overflow-hidden bg-blue-300"
+    role="status"
+    aria-live="polite"
+    aria-label="Cargando..."
+>
+    <!-- <video
+        data-loading-video
+        class="absolute inset-0 h-full w-full object-cover"
+        muted
+        autoplay
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+    >
+        <source src="/videos/style-1920.mp4" type="video/mp4" />
+    </video> -->
+    <img
+        data-loading-media
+        class="absolute inset-0 h-full w-full object-cover"
+        src="/images/1989.gif"
+        alt=""
+        aria-hidden="true"
+    />
+
+    <div class="pointer-events-none absolute inset-0 grid place-items-center">
+        <div data-loading-spider class="ts" aria-hidden="true">
+            <span class="ts__fill"></span>
+        </div>
+    </div>
+
+    <div
+        class="opacity-0 pointer-events-none absolute inset-x-0 top-50 flex items-end justify-between gap-4 px-6 pb-6 font-display uppercase text-neutral-white text-[clamp(2rem,9vw,3rem)] leading-none md:px-8 md:pb-8"
+    >
+        <span>CARGANDO...</span>
+        <span data-loading-percent aria-hidden="true">0%</span>
+    </div>
+</div>
+
+<style>
+  .ts {
+    --progress: 0; /* custom property que usaremos para controlar el fill */
+    width: 300px;
+    height: 50px;
+    mask: url(/images/belenVersion.svg) no-repeat center / contain;
+    background-color: --alpha(var(--color-neutral-white) / 25%);
+  }
+
+  .ts__fill {
+    display: block;
+    height: 100%;
+    background-color: var(--color-neutral-white);
+    transform: scaleY(var(--progress));
+    transform-origin: bottom;
+  }
+</style>
+
+<script>
+  import { $ } from "@/lib/dom";
+  import { gsap, prefersReducedMotion } from "@/lib/gsap"
+  import { markLoadingDone, markLoadingReady } from "@/lib/loading"
+
+  const $overlay = $("#loading")
+  const $media = $("[data-loading-media]") as HTMLImageElement | null
+  const $percent = $("[data-loading-percent]")
+  const $spider = $("[data-loading-spider]")
+
+  if ($overlay && $media && $percent && $spider) {
+    document.body.classList.add("overflow-hidden")
+
+    const finish = () => {
+      document.body.classList.remove("overflow-hidden")
+      $overlay.remove()
+      markLoadingDone()
+    }
+
+    const setProgress = (value: number) => {
+      $percent.textContent = `${Math.round(value)}%`
+      $spider.style.setProperty("--progress", String(value / 100))
+    }
+
+    const playIntro = () => {
+      const counter = { value: 0 }
+
+      gsap
+        .timeline({ onComplete: finish })
+        .to(counter, {
+          value: 100,
+          duration: 5,
+          ease: "none",
+          onUpdate: () => {
+            setProgress(counter.value)
+          },
+          onComplete: markLoadingReady,
+        })
+        .to($overlay, {
+          yPercent: -115,
+          rotation: -7,
+          duration: 0.6,
+          ease: "power3.in",
+        })
+    }
+
+    if (prefersReducedMotion()) {
+      setProgress(100)
+      finish()
+    } else if ($media.complete) {
+      playIntro()
+    } else {
+      $media.addEventListener("load", playIntro, { once: true })
+      $media.addEventListener("error", playIntro, { once: true })
+    }
+  }
+</script>

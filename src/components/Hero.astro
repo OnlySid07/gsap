@@ -1,0 +1,36 @@
+---
+---
+<section data-hero id="intro" class="relative h-[520vh]">
+    <div data-hero-stage class="sticky top-0 h-screen w-full overflow-hidden">
+        <div data-hero-media class="absolute inset-0">
+            <video
+            data-hero-video
+            class="h-full w-full object-contain md:object-cover"
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+            >
+            <source src="/videos/style-1920.mp4" type="video/mp4" />
+        </video>
+    </div>
+</div>
+
+</section>
+<script>
+    import {$} from "@/lib/dom";
+    import {onLoadingReady } from "@/lib/loading"
+
+    const $hero = $("[data-hero]");
+    const $video = $("[data-hero-video]")as HTMLVideoElement;
+    const $stage = $("[data-hero-stage]");
+    
+    if ($video){
+        onLoadingReady(() => {
+            $video.play().catch((error) => {
+                console.error("Error al reproducir el video:", error);
+            });
+        }); 
+    }
+
+
+</script>

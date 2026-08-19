@@ -1,62 +1,27 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Belen's Version</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style is:global>
-	@import "tailwindcss";
-	@theme{
-		--font-sans: "GTA, sans-serif";
-		--font-narrow: "GTAnarrow, sans-serif";
-	}
-	html,
-	body {
-		background: #000;
-		height: 300vh;
-		
-		overflow-x: hidden;
-		overscroll-behavior: none;
-		color: white;
-		margin: 0;
-		width: 100%;
-		
-	}
-	@font-face {
-		font-family: "GTA";
-		src: url("/fonts/gta-regular.woff") format("woff");
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: "GTAnarrow";
-		src: url("/fonts/gta-narrow.woff") format("woff");
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: "GTA";
-		src: url("/fonts/gta-bold.woff") format("woff");
-		font-weight: bold;
-		font-style: normal;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: "GTAnarrow";
-		src: url("/fonts/gta-semibold-bold.woff") format("woff");
-		font-weight: 600;
-		font-style: normal;
-		font-display: swap;
-	}
-</style>
+<!-- <style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style> -->

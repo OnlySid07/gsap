@@ -1,95 +1,18 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import heroKeyLogo from "@/assets/hero-key-background.webp";
-import heroJosueLogo from "@/assets/josue.webp";
+import Loading from "@/components/Loading.astro";
+import Hero from "@/components/Hero.astro";
+import Galeria from "@/components/Galeria.astro";
+import Footer from "@/components/Footer.astro";
+import FixedUI from "@/components/FixedUI.astro";
 ---
 
 <Layout>
-	<div id="logo-mask" class="fixed top-0 left-0 w-full h-screen z-10">
-		<section>
-			<picture
-				id="hero-key"
-				class="h-screen scale-105 w-full block overflow-hidden fixed"
-			>
-				<img
-					id="hero-key-logo"
-					src={heroKeyLogo.src}
-					class="w-full h-full object-cover"
-				/>
-			</picture>
-		</section>
-	</div>
-
-	<div id="logo-josue" class="fixed top-0 w-full h-screen z-0 opacity-0">
-		<section>
-			<!-- <picture
-				id="logo-josue-picture"
-				class="h-screen block translate-y-[-20%] "
-			>
-				<img
-					id="hero-josue-logo"
-					src={heroJosueLogo.src}
-					class="w-full h-full object-cover opacity-0"
-				/>
-			</picture> -->
-		</section>
-	</div>
+	<Loading />
+	<FixedUI />
+	<main class="bg-blue-300">
+		<Hero />
+		<Galeria />
+		<Footer />
+	</main>
 </Layout>
-
-<style>
-	#logo-mask {
-		background: white;
-		mask-image: url("/belen.svg");
-		mask-position: center 49%;
-		mask-repeat: no-repeat;
-		mask-size: clamp(9000vh, 6000%, 0vh);
-	}
-	#logo-josue {
-		background: white;
-		mask-image: url("/josue.svg");
-		mask-repeat: no-repeat;
-		mask-position: center 30%;
-		mask-size: clamp(30vh, 100%, 0vh);
-	}
-</style>
-
-<script>
-	import { gsap } from "gsap";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
-	gsap.registerPlugin(ScrollTrigger);
-	const tl = gsap.timeline({
-		ease: "power2.out",
-		scrollTrigger: {
-			scrub: 1,
-		},
-	});
-
-	tl
-		.to("#hero-key", { duration: 1, scale: 1 })
-		.to(
-			"#logo-mask",
-			{
-				maskSize: "clamp(20vh, 100%, 30vh)",
-			},
-			0.8,
-		)
-		.to(
-			"#hero-key",
-			{
-				opacity: 0,
-				duration: 0.2,
-			},
-			0.4,
-		)
-		.to("#logo-mask", {
-			translateY: "-29%",
-		})
-		.to(
-			"#logo-josue",
-			{
-				opacity: 1,
-				duration: 0.1,
-			},
-			1.6,
-		);
-</script>
