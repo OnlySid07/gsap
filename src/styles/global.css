@@ -29,6 +29,7 @@
 
   --color-red-light: #d12027;
   --color-red-dark: #8d191b;
+  --color-blue-light: #0f2e8c;
 
   --color-blue-dark: #081d62;
 }
@@ -46,7 +47,7 @@
 		/* `clip` corta overflow sin romper sticky (a diferencia de `hidden`). */
 		overflow-x: clip;
 		scrollbar-width: thin;
-		scrollbar-color: var(--color-red-light) var(--color-blue-dark);
+		scrollbar-color: var(--color-blue-light) var(--color-blue-dark);
 	}
 
 	html::-webkit-scrollbar {
@@ -60,8 +61,8 @@
 	html::-webkit-scrollbar-thumb {
 		background: linear-gradient(
 			180deg,
-			var(--color-red-light) 0%,
-			var(--color-red-dark) 100%
+			var(--color-blue-light) 0%,
+			var(--color-blue-dark) 100%
 		);
 		border-radius: 999px;
 		border: 2px solid var(--color-blue-dark);
