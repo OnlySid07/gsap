@@ -1,0 +1,45 @@
+---
+import MenuNav from "./MenuNav.astro"
+import SiteLogo from "./SiteLogo.astro"
+import TicketsButton from "./TicketsButton.astro"
+import SocialLinks from "./SocialLinks.astro"
+import TrailerButton from "./TrailerButton.astro"
+import Copyright from "./Copyright.astro"
+import TrailerModal from "./TrailerModal.astro"
+---
+<div
+  data-fixed-ui
+  class="pointer-events-none fixed inset-0 z-40 flex flex-col justify-between p-4 md:p-6"
+>
+  <!-- Grid de 3 columnas con los laterales a `1fr`: el logo queda centrado en la
+       ventana aunque los grupos de los lados midan distinto. -->
+  <div class="grid grid-cols-[1fr_auto_1fr] items-start gap-4">
+    <div class="flex justify-start"><MenuNav /></div>
+    <SiteLogo />
+    <div class="flex justify-end"><TicketsButton /></div>
+  </div>
+
+  <div class="flex items-end justify-between gap-4">
+    <SocialLinks />
+    <TrailerButton />
+  </div>
+
+  <Copyright />
+</div>
+
+<script>
+  import { gsap } from "@/lib/gsap"
+  import { $ } from "@/lib/dom"
+  import { onLoadingDone } from "@/lib/loading"
+
+  // Nav, logo, CTAs… ocultos hasta que el overlay de loading salga del DOM.
+  const ui = $("[data-fixed-ui]")
+
+  if (ui) {
+    // `set` = estado inicial sin animar; `to` hace el fade-in al estar listo.
+    gsap.set(ui, { autoAlpha: 0 })
+    onLoadingDone(() =>
+      gsap.to(ui, { autoAlpha: 1, duration: 0.6, ease: "power2.out" }),
+    )
+  }
+</script>

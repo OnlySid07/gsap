@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<
+	HTMLAttributes<'img'>,
+	'src' | 'srcset' | 'sizes' | 'alt' | 'width' | 'height'
+> & {
+	base: string;
+	widths: readonly number[];
+	sizes: string;
+	alt: string;
+	width: number;
+	height: number;
+	pictureClass?: string;
+};
+
+const {
+	base,
+	widths,
+	sizes,
+	alt,
+	width,
+	height,
+	pictureClass,
+	class: imgClass,
+	loading = 'lazy',
+	decoding = 'async',
+	...imgAttributes
+} = Astro.props;
+
+const largestWidth = Math.max(...widths);
+const srcSet = (format: 'avif' | 'webp') =>
+	widths.map((sourceWidth) => `/images/${base}-${sourceWidth}.${format} ${sourceWidth}w`).join(', ');
+---
+
+<picture class={pictureClass}>
+	<source type="image/avif" srcset={srcSet('avif')} {sizes} />
+	<source type="image/webp" srcset={srcSet('webp')} {sizes} />
+	<img
+		src={`/images/${base}-${largestWidth}.webp`}
+		srcset={srcSet('webp')}
+		{sizes}
+		{width}
+		{height}
+		{alt}
+		class={imgClass}
+		{loading}
+		{decoding}
+		{...imgAttributes}
+	/>
+</picture>

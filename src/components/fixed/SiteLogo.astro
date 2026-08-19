@@ -1,0 +1,39 @@
+---
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
+---
+
+<a
+	href="#trailer"
+	class="site-logo pointer-events-auto w-[min(42vw,230px)] shrink-0"
+	aria-label="Inicio"
+>
+	<ResponsiveImage
+		base="logo"
+		widths={[600, 1200]}
+		sizes="(min-width: 768px) 230px, 42vw"
+		width={1200}
+		height={638}
+		alt="Logo Belen Josue"
+		class="h-auto w-full"
+		loading="eager"
+		fetchpriority="high"
+	/>
+</a>
+
+<style>
+	/* El ancho sólo miraba el ancho de la ventana, así que tumbando el móvil el
+	   logo se quedaba en sus 230px y, con ellos, en 122px de alto: el 34% de la
+	   pantalla (medido a 640×360). Sumado a la fila de abajo, la UI fija ocupaba
+	   202 de los 360px y al contenido le quedaba una franja de 158.
+
+	   El tope en `vh` sólo entra en ventanas bajas para no encoger el logo en
+	   portátiles: a 1366×768 el `28vh` son 215px y se comería los 230 del
+	   diseño. A 360px de alto quedan 101 de ancho y 54 de alto, un pelo por
+	   encima de las píldoras de 48, así que el logo sigue mandando en la fila
+	   sin quedarse con la pantalla. */
+	@media (max-height: 480px) {
+		.site-logo {
+			width: min(42vw, 230px, 28vh);
+		}
+	}
+</style>
